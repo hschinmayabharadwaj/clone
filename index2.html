@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calm: Meditation, Sleep, Relaxation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            color: #2d3748;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .logo {
+            height: 30px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .login-btn {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .signup-btn {
+            background-color: #5a46e5;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/screencapture-calm-2025-04-20-20_52_39.jpg-qaoQrkT7Oddhhk5ZlWuWk6hGdT38hb.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0.7));
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #2d3748;
+        }
+        
+        .cta-button {
+            background-color: #5a46e5;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .secondary-text {
+            font-size: 14px;
+            color: #4a5568;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .benefits h2 {
+            font-size: 32px;
+            margin-bottom: 60px;
+            color: #1a365d;
+        }
+        
+        .benefits-container {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .benefit-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+        
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .stress-icon {
+            background-color: #ebf8ff;
+            color: #3182ce;
+        }
+        
+        .sleep-icon {
+            background-color: #faf5ff;
+            color: #805ad5;
+        }
+        
+        .mindful-icon {
+            background-color: #e6fffa;
+            color: #319795;
+        }
+        
+        .benefit-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+        
+        .benefit-card p {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+        
+        .learn-more {
+            color: #5a46e5;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Content Carousel */
+        .content-carousel {
+            padding: 40px 0;
+            background-color: #f7fafc;
+            overflow: hidden;
+        }
+        
+        .carousel-container {
+            display: flex;
+            gap: 20px;
+            padding: 20px 40px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .content-card {
+            min-width: 180px;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .content-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+        }
+        
+        .card-overlay h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .card-overlay p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        /* Reviews Section */
+        .reviews {
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .reviews h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #1a365d;
+        }
+        
+        .reviews-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .review-card {
+            background-color: #4299e1;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            text-align: left;
+        }
+        
+        .review-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .reviewer-name {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .stars {
+            margin-top: 15px;
+            color: #ffd700;
+        }
+        
+        /* Trial Section */
+        .trial {
+            padding: 80px 40px;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .trial::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .trial-content {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .trial h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #1a365d;
+        }
+        
+        .trial-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .email-input {
+            padding: 12px 20px;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            font-size: 16px;
+        }
+        
+        .trial-button {
+            background-color: #5a46e5;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .trial-terms {
+            font-size: 12px;
+            color: #718096;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        /* Blog Section */
+        .blog {
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .blog h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #1a365d;
+        }
+        
+        .blog-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .blog-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 20px;
+            text-align: left;
+        }
+        
+        .blog-category {
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 10px;
+        }
+        
+        .blog-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+        
+        .see-all-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #5a46e5;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: 80px 40px;
+            background-color: #f7fafc;
+        }
+        
+        .faq h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #1a365d;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-category {
+            margin-bottom: 30px;
+        }
+        
+        .category-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #718096;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 0;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .faq-question h3 {
+            font-size: 16px;
+            font-weight: 500;
+            color: #2d3748;
+        }
+        
+        .faq-answer {
+            display: none;
+            padding: 15px 0;
+            font-size: 14px;
+            color: #4a5568;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a202c;
+            color: white;
+            padding: 60px 40px 30px;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #a0aec0;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .footer-links a {
+            font-size: 14px;
+            color: #e2e8f0;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        
+        .social-icon:hover {
+            background-color: #4a5568;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 12px;
+            color: #a0aec0;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .benefits-container, .reviews-container, .blog-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .benefit-card, .review-card, .blog-card {
+                max-width: 100%;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#"><img src="/placeholder.svg?height=30&width=100" alt="Calm Logo" class="logo"></a>
+        <nav class="nav-links">
+            <div class="nav-left"></div>
+            <a href="#">Sleep & Rest</a>
+            <a href="#">Stress & anxiety</a>
+            <a href="#">Mindfullness</a>
+        </div>
+        <div class="nav-right">
+            <a href="#">Screening</a>
+            <a href="#">Calm Health</a>
+        </div>
+        </nav>
+        
+        <div class="auth-buttons">
+            <a href="#" class="login-btn">Log In</a>
+            <a href="#" class="signup-btn">Try Calm for Free</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Calm your mind. Change your life.</h1>
+            <p>The #1 app for sleep, meditation and relaxation</p>
+            <a href="#" class="cta-button">Sign Up for Free</a>
+            <p class="secondary-text">Already have an account?</p>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <h2>We're here to help you feel better.</h2>
+        <div class="benefits-container">
+            <div class="benefit-card">
+                <div class="benefit-icon stress-icon">
+                    <i class="fas fa-wind fa-lg"></i>
+                </div>
+                <h3>Stress less.</h3>
+                <p>Get the tools you need to reduce stress and anxiety with guided meditations and mindfulness techniques.</p>
+                <a href="#" class="learn-more">Learn More</a>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon sleep-icon">
+                    <i class="fas fa-moon fa-lg"></i>
+                </div>
+                <h3>Sleep more.</h3>
+                <p>Fall asleep faster, stay asleep longer, and wake up feeling refreshed with sleep stories and soundscapes.</p>
+                <a href="#" class="learn-more">Learn More</a>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon mindful-icon">
+                    <i class="fas fa-heart fa-lg"></i>
+                </div>
+                <h3>Live mindfully.</h3>
+                <p>Discover how to be more present and engaged with daily mindfulness practices and breathing exercises.</p>
+                <a href="#" class="learn-more">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Carousel -->
+    <section class="content-carousel">
+        <div class="carousel-container">
+            <!-- Repeat these cards to match the screenshot -->
+            <div class="content-card">
+                <img src="/placeholder.svg?height=250&width=180" alt="Meditation content">
+                <div class="card-overlay">
+                    <h4>Daily Calm</h4>
+                    <p>Meditation</p>
+                </div>
+            </div>
+            <div class="content-card">
+                <img src="/placeholder.svg?height=250&width=180" alt="Sleep story content">
+                <div class="card-overlay">
+                    <h4>Sleep Stories</h4>
+                    <p>For better sleep</p>
+                </div>
+            </div>
+            <div class="content-card">
+                <img src="/placeholder.svg?height=250&width=180" alt="Music content">
+                <div class="card-overlay">
+                    <h4>Calm Music</h4>
+                    <p>Relaxing sounds</p>
+                </div>
+            </div>
+            <div class="content-card">
+                <img src="/placeholder.svg?height=250&width=180" alt="Anxiety content">
+                <div class="card-overlay">
+                    <h4>Anxiety Relief</h4>
+                    <p>Guided program</p>
+                </div>
+            </div>
+            <div class="content-card">
+                <img src="/placeholder.svg?height=250&width=180" alt="Breathing content">
+                <div class="card-overlay">
+                    <h4>Breathing Exercises</h4>
+                    <p>For focus</p>
+                </div>
+            </div>
+            <div class="content-card">
+                <img src="/placeholder.svg?height=250&width=180" alt="Masterclass content">
+                <div class="card-overlay">
+                    <h4>Masterclass</h4>
+                    <p>Expert guidance</p>
+                </div>
+            </div>
+            <div class="content-card">
+                <img src="/placeholder.svg?height=250&width=180" alt="Body scan content">
+                <div class="card-overlay">
+                    <h4>Body Scan</h4>
+                    <p>Relaxation</p>
+                </div>
+            </div>
+            <div class="content-card">
+                <img src="/placeholder.svg?height=250&width=180" alt="Nature sounds content">
+                <div class="card-overlay">
+                    <h4>Nature Melodies</h4>
+                    <p>Soundscapes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews">
+        <h2>Over 2 million 5-star reviews.</h2>
+        <div class="reviews-container">
+            <div class="review-card">
+                <p class="review-text">When I cannot fall asleep, I turn on the app and fall asleep within 5 minutes.</p>
+                <p class="reviewer-name">- Jane from Chicago</p>
+                <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card">
+                <p class="review-text">I have a very busy brain and need a daily practice to remind me to be peaceful and calm.</p>
+                <p class="reviewer-name">- Alex from New York</p>
+                <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card">
+                <p class="review-text">Calm has changed my life. I am more resilient and feel so much more connected to myself.</p>
+                <p class="reviewer-name">- Jamie from San Jose</p>
+                <div class="stars">★★★★★</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trial Section -->
+    <section class="trial">
+        <div class="trial-content">
+            <h2>Start your free trial of Calm Premium.</h2>
+            <form class="trial-form">
+                <input type="email" placeholder="Email" class="email-input" required>
+                <button type="submit" class="trial-button">Continue</button>
+            </form>
+            <p class="trial-terms">By clicking Continue, you agree to our Terms of Service and Privacy Policy. You can cancel your subscription anytime.</p>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog">
+        <h2>Check out our blog for more meditation, sleep, stress, and mental health resources.</h2>
+        <div class="blog-container">
+            <div class="blog-card">
+                <img src="/placeholder.svg?height=200&width=350" alt="Blog post image" class="blog-image">
+                <div class="blog-content">
+                    <p class="blog-category">Sleep Meditation</p>
+                    <h3 class="blog-title">Why meditation is better than vacation for rest</h3>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="/placeholder.svg?height=200&width=350" alt="Blog post image" class="blog-image">
+                <div class="blog-content">
+                    <p class="blog-category">How to "Mindfully" have a better work-life balance</p>
+                    <h3 class="blog-title">Finding balance in your daily routine</h3>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="/placeholder.svg?height=200&width=350" alt="Blog post image" class="blog-image">
+                <div class="blog-content">
+                    <p class="blog-category">Mental Health</p>
+                    <h3 class="blog-title">The importance of your emotional health</h3>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="see-all-link">See all blog posts</a>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-category">
+                <p class="category-title">GENERAL</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is Calm?</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Calm is the #1 app for sleep, meditation and relaxation. Join the millions experiencing better sleep, lower stress, and less anxiety with our guided meditations, Sleep Stories, breathing programs, stretching exercises, and relaxing music.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What's included in Calm meditation?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Where should I get started when I download the app?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What devices support the Calm app?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I cancel?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <p class="category-title">MEDITATION & MINDFULNESS</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is meditation?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is mindfulness?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <p class="category-title">STRESS & ANXIETY</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What causes stress and anxiety?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How can I manage my stress and anxiety?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <p class="category-title">SLEEP</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Why do I have trouble sleeping?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How can I sleep better naturally?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Are Sleep Stories good for kids and adults?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <p class="category-title">SOUNDSCAPES</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do different sound frequencies affect your brain?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do Nature Sounds help improve focus and reduce stress?</h3>
+                        <span>+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Company</h3>
+                <div class="footer-links">
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Press</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Meet Our Experts</a>
+                    <a href="#">Calm Science</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Offers</h3>
+                <div class="footer-links">
+                    <a href="#">Buy Gift</a>
+                    <a href="#">Redeem Gift</a>
+                    <a href="#">Business</a>
+                    <a href="#">Education</a>
+                    <a href="#">Healthcare</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Help</h3>
+                <div class="footer-links">
+                    <a href="#">FAQ</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">CCPA Notice</a>
+                    <a href="#">Opt out of Targeted Ads</a>
+                    <a href="#">Cookies</a>
+                    
+                    <a href="#">Accessibility Statement</a>
+                    
+                    
+                    
+                </div>
+            </div>
+            <div class="footer-column">
+              
+                
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            Copyright © 2025 Calm. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for FAQ accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isOpen = answer.style.display === 'block';
+                    
+                    // Close all answers
+                    document.querySelectorAll('.faq-answer').forEach(item => {
+                        item.style.display = 'none';
+                    });
+                    
+                    // Reset all plus signs
+                    document.querySelectorAll('.faq-question span').forEach(span => {
+                        span.textContent = '+';
+                    });
+                    
+                    // Open this answer if it was closed
+                    if (!isOpen) {
+                        answer.style.display = 'block';
+                        this.querySelector('span').textContent = '-';
+                    }
+                });
+            });
+            
+            // Sticky header on scroll
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                    header.style.boxShadow = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
